@@ -1,6 +1,11 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # Census Plotly
+# MAGIC # Census Plotly test test
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### Perform a basic exploratory data analysis on the census data
 
 # COMMAND ----------
 
@@ -11,7 +16,7 @@ import plotly.express as px
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ### Perform a basic exploratory data analysis on the census data
+# MAGIC ### Get data
 
 # COMMAND ----------
 
@@ -44,7 +49,7 @@ fig = go.Figure()
 fig.add_trace(go.Histogram(x=df.age,nbinsx=50))
 
 # The two histograms are drawn on top of another
-fig.update_layout(barmode='stack')
+fig.update_layout(barmode='stack',)
 fig.show()
 
 # COMMAND ----------
@@ -66,15 +71,41 @@ fig.show()
 
 # COMMAND ----------
 
-
-
-# COMMAND ----------
-
-
+# MAGIC %md 
+# MAGIC ### Pandas to Spark
 
 # COMMAND ----------
 
+df
 
+# COMMAND ----------
+
+from pyspark.sql import SparkSession
+#Create PySpark SparkSession
+spark = SparkSession.builder \
+    .master("local[1]") \
+    .appName("SparkByExamples.com") \
+    .getOrCreate()
+#Create PySpark DataFrame from Pandas
+sparkDF=spark.createDataFrame(df) 
+sparkDF.printSchema()
+sparkDF.show()
+
+# COMMAND ----------
+
+# Create a view or table
+
+temp_table_name = "census_clean_from_raw"
+
+sparkDF.createOrReplaceTempView(temp_table_name)
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC 
+# MAGIC /* Query the created temp table in a SQL cell */
+# MAGIC 
+# MAGIC select * from `census_clean_from_raw`
 
 # COMMAND ----------
 

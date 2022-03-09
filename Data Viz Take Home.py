@@ -109,4 +109,12 @@ sparkDF.createOrReplaceTempView(temp_table_name)
 
 # COMMAND ----------
 
+# MAGIC %sql
+# MAGIC 
+# MAGIC /* Query the created temp table in a SQL cell */
+# MAGIC 
+# MAGIC select * from `census_clean_from_raw`
+
+# COMMAND ----------
+
 

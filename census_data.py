@@ -1,10 +1,15 @@
 # Databricks notebook source
+# MAGIC %md
+# MAGIC # Censis Analysis
+
+# COMMAND ----------
+
 # File location and type
 file_location = "/FileStore/tables/census_clean.csv"
 file_type = "csv"
 
 # CSV options
-infer_schema = "false"
+infer_schema = "true"
 first_row_is_header = "true"
 delimiter = ","
 
@@ -19,6 +24,18 @@ df = spark.read.format(file_type) \
 # COMMAND ----------
 
 df = df.drop("_c0")
+
+# COMMAND ----------
+
+df.dtypes
+
+# COMMAND ----------
+
+display(df)
+
+# COMMAND ----------
+
+display(df)
 
 # COMMAND ----------
 
